@@ -394,8 +394,6 @@ h1.title {
 
 .detail-wrap {
   display: none;
-  background: var(--stripe);
-  border-radius: var(--radius-md);
   margin: 0.2rem 0 0.6rem;
   padding: 0.5rem 0;
 }
@@ -414,6 +412,19 @@ h1.title {
 
 .entry-row:first-child {
   margin-top: 0;
+}
+
+.entry-dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.entry-dot span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border);
 }
 
 .entry-name-cell {
@@ -511,11 +522,27 @@ h1.title {
   padding: 1.2rem;
 }
 
-.team-card h3 {
-  margin: 0 0 0.75rem 0;
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.team-tag {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
   color: var(--purple);
-  font-size: 1rem;
-  font-weight: 800;
+  background: var(--purple-tint);
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-pill);
+}
+
+.team-total {
+  font-size: 0.75rem;
+  color: var(--text-3);
+  font-weight: 600;
 }
 
 .team-card ul {

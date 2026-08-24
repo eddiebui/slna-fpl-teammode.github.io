@@ -48,7 +48,7 @@ function entryDetailRows(teams, scores, teamId, event) {
       const url = fplEntryUrl(e.entry_id);
       return `
         <div class="entry-row">
-          <span></span>
+          <span class="entry-dot"><span></span></span>
           <span class="entry-name-cell">
             <a href="${url}" target="_blank" rel="noopener">${e.entry_name}</a>
             <span class="entry-manager">${e.manager}</span>
@@ -134,7 +134,7 @@ async function renderStandings() {
           <span class="team-meta">${(teams[row.teamId] || []).length} đội</span>
         </span>
         <span class="metric-fpl">${row.fplPoints ?? "-"}</span>
-        <span><span class="pill">${row.leaguePoints ?? "-"}</span></span>
+        <span class="pill">${row.leaguePoints ?? "-"}</span>
         <span class="chev">${CHEVRON_SVG}</span>
       `;
 
@@ -183,7 +183,13 @@ async function renderStandings() {
 async function renderTeams() {
   const el = document.getElementById("teams-grid");
   if (!el) return;
-  const teams = await fetchJSON("data/teams.json");
+  const [teams, standings] = await Promise.all([
+    fetchJSON("data/teams.json"),
+    fetchJSON("data/standings.json"),
+  ]);
+  const totalByTeam = Object.fromEntries(
+    standings.standings.map((row) => [row.team_id, row.raw_points])
+  );
   el.innerHTML = "";
   Object.keys(teams)
     .sort((a, b) => Number(a) - Number(b))
@@ -192,7 +198,10 @@ async function renderTeams() {
       const card = document.createElement("div");
       card.className = "team-card";
       card.innerHTML = `
-        <h3>Team ${teamId}</h3>
+        <div class="card-head">
+          <span class="team-tag">Team ${teamId}</span>
+          <span class="team-total">${totalByTeam[teamId] ?? "-"} đ</span>
+        </div>
         <ul>
           ${entries
             .map(
