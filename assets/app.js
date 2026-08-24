@@ -25,6 +25,14 @@ function fplEntryUrl(entryId) {
   return `https://fantasy.premierleague.com/entry/${entryId}/history`;
 }
 
+function fplLinkHtml(entryId, label) {
+  const url = fplEntryUrl(entryId);
+  return `
+    <a href="${url}" target="_blank" rel="noopener">${label}</a>
+    <button type="button" class="copy-link-btn" data-url="${url}" title="Copy link (dùng nếu app FPL tự mở và hiện sai đội)">⧉</button>
+  `;
+}
+
 function entryDetailRows(teams, scores, teamId) {
   const entries = teams[teamId] || [];
   return entries
@@ -32,7 +40,7 @@ function entryDetailRows(teams, scores, teamId) {
       const total = scores[String(e.entry_id)]?.total ?? "-";
       return `
         <li>
-          <a href="${fplEntryUrl(e.entry_id)}" target="_blank" rel="noopener">${e.entry_name}</a>
+          ${fplLinkHtml(e.entry_id, e.entry_name)}
           <span class="entry-manager">${e.manager}</span>
           <span class="pill entry-points">${total}</span>
         </li>
@@ -100,7 +108,7 @@ async function renderTeams() {
         <ul>
           ${entries
             .map(
-              (e) => `<li><a href="${fplEntryUrl(e.entry_id)}" target="_blank" rel="noopener">${e.entry_name}</a><br><span class="entry-manager">${e.manager}</span></li>`
+              (e) => `<li>${fplLinkHtml(e.entry_id, e.entry_name)}<br><span class="entry-manager">${e.manager}</span></li>`
             )
             .join("")}
         </ul>
@@ -153,6 +161,40 @@ async function renderRound() {
     renderForEvent(select.value);
   }
 }
+
+async function copyToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textarea);
+}
+
+document.addEventListener("click", async (e) => {
+  const btn = e.target.closest(".copy-link-btn");
+  if (!btn) return;
+  e.preventDefault();
+  e.stopPropagation();
+  try {
+    await copyToClipboard(btn.dataset.url);
+    const original = btn.textContent;
+    btn.textContent = "✓";
+    btn.classList.add("copied");
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.classList.remove("copied");
+    }, 1500);
+  } catch (err) {
+    window.prompt("Copy link này rồi dán vào trình duyệt:", btn.dataset.url);
+  }
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   renderHomeStandings().catch(console.error);
