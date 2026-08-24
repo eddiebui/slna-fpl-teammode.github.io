@@ -4,17 +4,15 @@ async function fetchJSON(path) {
   return res.json();
 }
 
-function medalFor(rank) {
-  if (rank === 1) return '<span class="medal gold">1</span>';
-  if (rank === 2) return '<span class="medal silver">2</span>';
-  if (rank === 3) return '<span class="medal bronze">3</span>';
-  return rank;
+function rankChip(rank) {
+  const cls = rank <= 3 ? ` r${rank}` : "";
+  return `<span class="rank-chip${cls}">${rank}</span>`;
 }
 
 function formatUpdatedAt(iso) {
   if (!iso) return "";
   const d = new Date(iso);
-  return d.toLocaleString("vi-VN", { dateStyle: "medium", timeStyle: "short" });
+  return d.toLocaleString("vi-VN", { dateStyle: "short", timeStyle: "short" });
 }
 
 function teamDisplayName(teams, teamId) {
@@ -77,8 +75,9 @@ async function renderStandings() {
     fetchJSON("data/scores.json"),
   ]);
 
-  document.getElementById("updated-at").textContent =
-    standings.updated_at ? `Cập nhật lần cuối: ${formatUpdatedAt(standings.updated_at)}` : "";
+  document.getElementById("updated-at").textContent = standings.updated_at
+    ? `Cập nhật ${formatUpdatedAt(standings.updated_at)} — tự động mỗi giờ`
+    : "";
 
   const rounds = standings.rounds;
   gwSelect.innerHTML =
@@ -129,8 +128,11 @@ async function renderStandings() {
       const tr = document.createElement("div");
       tr.className = "standings-row";
       tr.innerHTML = `
-        <span class="rank-cell">${medalFor(row.rank)}</span>
-        <span class="team-name">${teamDisplayName(teams, row.teamId)}</span>
+        ${rankChip(row.rank)}
+        <span class="team-cell">
+          <span class="team-name">${teamDisplayName(teams, row.teamId)}</span>
+          <span class="team-meta">${(teams[row.teamId] || []).length} đội</span>
+        </span>
         <span class="metric-fpl">${row.fplPoints ?? "-"}</span>
         <span><span class="pill">${row.leaguePoints ?? "-"}</span></span>
         <span class="chev">${CHEVRON_SVG}</span>
@@ -188,7 +190,7 @@ async function renderTeams() {
     .forEach((teamId) => {
       const entries = teams[teamId];
       const card = document.createElement("div");
-      card.className = "card team-card";
+      card.className = "team-card";
       card.innerHTML = `
         <h3>Team ${teamId}</h3>
         <ul>
