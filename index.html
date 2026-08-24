@@ -12,7 +12,6 @@
       <h1>⚽ SLNA Fantasy PL <span class="badge">2026-2027</span></h1>
       <nav class="site-nav">
         <a href="index.html" class="active">Bảng xếp hạng</a>
-        <a href="round.html">Từng vòng đấu</a>
         <a href="teams.html">Chia đội</a>
         <a href="rules.html">Thể lệ</a>
       </nav>
@@ -23,15 +22,15 @@
     <p class="updated-at" id="updated-at"></p>
     <div class="card">
       <h2>Bảng xếp hạng Classic League</h2>
+      <div class="standings-controls">
+        <select id="gw-select"></select>
+        <div class="view-toggle" id="view-toggle">
+          <button type="button" class="view-btn" data-mode="full">Đầy đủ</button>
+          <button type="button" class="view-btn active" data-mode="compact">Rút gọn</button>
+        </div>
+      </div>
       <table>
-        <thead>
-          <tr>
-            <th>Hạng</th>
-            <th>Team</th>
-            <th>Điểm League</th>
-            <th>Tổng điểm FPL</th>
-          </tr>
-        </thead>
+        <thead id="standings-head"></thead>
         <tbody id="standings-body"></tbody>
       </table>
     </div>

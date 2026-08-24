@@ -33,25 +33,33 @@ function fplLinkHtml(entryId, label) {
   `;
 }
 
-function entryDetailRows(teams, scores, teamId) {
+function entryDetailRows(teams, scores, teamId, event) {
   const entries = teams[teamId] || [];
   return entries
     .map((e) => {
-      const total = scores[String(e.entry_id)]?.total ?? "-";
+      const scoreEntry = scores[String(e.entry_id)];
+      const points =
+        event == null
+          ? scoreEntry?.total ?? "-"
+          : scoreEntry?.event_points?.[String(event)] ?? "-";
       return `
         <li>
           ${fplLinkHtml(e.entry_id, e.entry_name)}
           <span class="entry-manager">${e.manager}</span>
-          <span class="pill entry-points">${total}</span>
+          <span class="pill entry-points">${points}</span>
         </li>
       `;
     })
     .join("");
 }
 
-async function renderHomeStandings() {
-  const el = document.getElementById("standings-body");
-  if (!el) return;
+async function renderStandings() {
+  const body = document.getElementById("standings-body");
+  if (!body) return;
+  const head = document.getElementById("standings-head");
+  const gwSelect = document.getElementById("gw-select");
+  const toggleWrap = document.getElementById("view-toggle");
+
   const [teams, standings, scores] = await Promise.all([
     fetchJSON("data/teams.json"),
     fetchJSON("data/standings.json"),
@@ -61,35 +69,110 @@ async function renderHomeStandings() {
   document.getElementById("updated-at").textContent =
     standings.updated_at ? `Cập nhật lần cuối: ${formatUpdatedAt(standings.updated_at)}` : "";
 
-  el.innerHTML = "";
-  standings.standings.forEach((row, idx) => {
-    const rank = idx + 1;
-    const tr = document.createElement("tr");
-    tr.className = "standings-row";
-    tr.innerHTML = `
-      <td class="rank-cell">${medalFor(rank)}</td>
-      <td class="team-name">${teamDisplayName(teams, row.team_id)} <span class="expand-hint">▾</span></td>
-      <td><span class="pill">${row.league_points}</span></td>
-      <td>${row.raw_points}</td>
-    `;
+  const rounds = standings.rounds;
+  gwSelect.innerHTML =
+    `<option value="all">Tất cả các vòng</option>` +
+    rounds.map((r) => `<option value="${r.event}">Vòng ${r.event}</option>`).join("");
 
-    const detailTr = document.createElement("tr");
-    detailTr.className = "standings-detail-row";
-    detailTr.style.display = "none";
-    const detailTd = document.createElement("td");
-    detailTd.colSpan = 4;
-    detailTd.innerHTML = `<ul class="entry-detail-list">${entryDetailRows(teams, scores, row.team_id)}</ul>`;
-    detailTr.appendChild(detailTd);
+  const expanded = new Set();
 
-    tr.addEventListener("click", () => {
-      const showing = detailTr.style.display !== "none";
-      detailTr.style.display = showing ? "none" : "table-row";
-      tr.classList.toggle("expanded", !showing);
+  function computeRows(mode) {
+    if (mode === "all") {
+      return standings.standings.map((row, idx) => ({
+        teamId: row.team_id,
+        rank: idx + 1,
+        leaguePoints: row.league_points,
+        rawPoints: row.raw_points,
+        event: null,
+      }));
+    }
+    const event = Number(mode);
+    const roundData = rounds.find((r) => r.event === event);
+    if (!roundData) return [];
+    const arr = Object.entries(roundData.teams)
+      .map(([teamId, d]) => ({ teamId, ...d }))
+      .sort((a, b) => (b.round_points ?? -1) - (a.round_points ?? -1));
+    return arr.map((row, idx) => ({
+      teamId: row.teamId,
+      rank: idx + 1,
+      roundPoints: row.round_points,
+      leaguePoints: row.league_points,
+      cumulative: row.cumulative_league_points,
+      event,
+    }));
+  }
+
+  function render() {
+    const mode = gwSelect.value;
+    const isAll = mode === "all";
+    head.innerHTML = isAll
+      ? `<tr><th>Hạng</th><th>Team</th><th>Điểm League</th><th>Tổng điểm FPL</th></tr>`
+      : `<tr><th>Hạng</th><th>Team</th><th>Điểm vòng</th><th>Điểm League</th><th>Tổng lũy kế</th></tr>`;
+    const colSpan = isAll ? 4 : 5;
+
+    const rows = computeRows(mode);
+    body.innerHTML = "";
+    rows.forEach((row) => {
+      const tr = document.createElement("tr");
+      tr.className = "standings-row";
+      tr.innerHTML = isAll
+        ? `
+          <td class="rank-cell">${medalFor(row.rank)}</td>
+          <td class="team-name">${teamDisplayName(teams, row.teamId)} <span class="expand-hint">▾</span></td>
+          <td><span class="pill">${row.leaguePoints}</span></td>
+          <td>${row.rawPoints}</td>
+        `
+        : `
+          <td class="rank-cell">${medalFor(row.rank)}</td>
+          <td class="team-name">${teamDisplayName(teams, row.teamId)} <span class="expand-hint">▾</span></td>
+          <td>${row.roundPoints ?? "-"}</td>
+          <td><span class="pill">${row.leaguePoints ?? "-"}</span></td>
+          <td>${row.cumulative}</td>
+        `;
+
+      const detailTr = document.createElement("tr");
+      detailTr.className = "standings-detail-row";
+      const isExpanded = expanded.has(row.teamId);
+      detailTr.style.display = isExpanded ? "table-row" : "none";
+      tr.classList.toggle("expanded", isExpanded);
+      const detailTd = document.createElement("td");
+      detailTd.colSpan = colSpan;
+      detailTd.innerHTML = `<ul class="entry-detail-list">${entryDetailRows(teams, scores, row.teamId, row.event)}</ul>`;
+      detailTr.appendChild(detailTd);
+
+      tr.addEventListener("click", () => {
+        const showing = detailTr.style.display !== "none";
+        detailTr.style.display = showing ? "none" : "table-row";
+        tr.classList.toggle("expanded", !showing);
+        if (showing) expanded.delete(row.teamId);
+        else expanded.add(row.teamId);
+      });
+
+      body.appendChild(tr);
+      body.appendChild(detailTr);
     });
+  }
 
-    el.appendChild(tr);
-    el.appendChild(detailTr);
+  gwSelect.addEventListener("change", () => {
+    expanded.clear();
+    render();
   });
+
+  if (toggleWrap) {
+    toggleWrap.addEventListener("click", (e) => {
+      const btn = e.target.closest(".view-btn");
+      if (!btn) return;
+      toggleWrap.querySelectorAll(".view-btn").forEach((b) => b.classList.toggle("active", b === btn));
+      expanded.clear();
+      if (btn.dataset.mode === "full") {
+        computeRows(gwSelect.value).forEach((row) => expanded.add(row.teamId));
+      }
+      render();
+    });
+  }
+
+  gwSelect.value = "all";
+  render();
 }
 
 async function renderTeams() {
@@ -115,51 +198,6 @@ async function renderTeams() {
       `;
       el.appendChild(card);
     });
-}
-
-async function renderRound() {
-  const select = document.getElementById("round-select");
-  const body = document.getElementById("round-body");
-  if (!select || !body) return;
-
-  const [teams, standings] = await Promise.all([
-    fetchJSON("data/teams.json"),
-    fetchJSON("data/standings.json"),
-  ]);
-
-  const rounds = standings.rounds;
-  select.innerHTML = rounds
-    .map((r) => `<option value="${r.event}">Vòng ${r.event}</option>`)
-    .join("");
-
-  function renderForEvent(event) {
-    const roundData = rounds.find((r) => r.event === Number(event));
-    body.innerHTML = "";
-    if (!roundData) return;
-
-    const rows = Object.entries(roundData.teams)
-      .map(([teamId, data]) => ({ teamId, ...data }))
-      .sort((a, b) => (b.round_points ?? -1) - (a.round_points ?? -1));
-
-    rows.forEach((row, idx) => {
-      const rank = idx + 1;
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td class="rank-cell">${medalFor(rank)}</td>
-        <td class="team-name">${teamDisplayName(teams, row.teamId)}</td>
-        <td>${row.round_points ?? "-"}</td>
-        <td><span class="pill">${row.league_points ?? "-"}</span></td>
-        <td>${row.cumulative_league_points}</td>
-      `;
-      body.appendChild(tr);
-    });
-  }
-
-  select.addEventListener("change", (e) => renderForEvent(e.target.value));
-  if (rounds.length) {
-    select.value = rounds[rounds.length - 1].event;
-    renderForEvent(select.value);
-  }
 }
 
 async function copyToClipboard(text) {
@@ -197,7 +235,6 @@ document.addEventListener("click", async (e) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderHomeStandings().catch(console.error);
+  renderStandings().catch(console.error);
   renderTeams().catch(console.error);
-  renderRound().catch(console.error);
 });

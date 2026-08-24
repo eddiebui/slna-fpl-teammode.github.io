@@ -6,7 +6,7 @@ GitHub Pages.
 
 ## Cấu trúc
 
-- `index.html`, `round.html`, `teams.html`, `rules.html` — các trang frontend.
+- `index.html` (bảng xếp hạng + lọc theo vòng đấu), `teams.html`, `rules.html` — các trang frontend.
 - `assets/` — CSS + JS dùng chung.
 - `data/teams.json` — chia đội (static, sinh 1 lần từ file CSV gốc).
 - `data/scores.json`, `data/standings.json` — dữ liệu điểm/xếp hạng, được
