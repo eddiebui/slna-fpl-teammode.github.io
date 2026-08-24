@@ -154,6 +154,56 @@ tbody tr:hover {
   font-size: 0.85rem;
 }
 
+.standings-row {
+  cursor: pointer;
+}
+
+.expand-hint {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.standings-row.expanded .expand-hint {
+  transform: rotate(180deg);
+}
+
+.standings-detail-row td {
+  background: var(--bg);
+  padding: 0.6rem 0.75rem;
+}
+
+.entry-detail-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.entry-detail-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-size: 0.88rem;
+}
+
+.entry-detail-list a {
+  color: var(--pl-purple);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.entry-detail-list a:hover {
+  text-decoration: underline;
+}
+
+.entry-points {
+  margin-left: auto;
+}
+
 select#round-select {
   padding: 0.5rem 0.75rem;
   border-radius: 8px;

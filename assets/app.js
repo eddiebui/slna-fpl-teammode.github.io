@@ -18,16 +18,36 @@ function formatUpdatedAt(iso) {
 }
 
 function teamDisplayName(teams, teamId) {
+  return `Team ${teamId}`;
+}
+
+function fplEntryUrl(entryId) {
+  return `https://fantasy.premierleague.com/entry/${entryId}/history`;
+}
+
+function entryDetailRows(teams, scores, teamId) {
   const entries = teams[teamId] || [];
-  return `Team ${Number(teamId) + 1}`;
+  return entries
+    .map((e) => {
+      const total = scores[String(e.entry_id)]?.total ?? "-";
+      return `
+        <li>
+          <a href="${fplEntryUrl(e.entry_id)}" target="_blank" rel="noopener">${e.entry_name}</a>
+          <span class="entry-manager">${e.manager}</span>
+          <span class="pill entry-points">${total}</span>
+        </li>
+      `;
+    })
+    .join("");
 }
 
 async function renderHomeStandings() {
   const el = document.getElementById("standings-body");
   if (!el) return;
-  const [teams, standings] = await Promise.all([
+  const [teams, standings, scores] = await Promise.all([
     fetchJSON("data/teams.json"),
     fetchJSON("data/standings.json"),
+    fetchJSON("data/scores.json"),
   ]);
 
   document.getElementById("updated-at").textContent =
@@ -37,13 +57,30 @@ async function renderHomeStandings() {
   standings.standings.forEach((row, idx) => {
     const rank = idx + 1;
     const tr = document.createElement("tr");
+    tr.className = "standings-row";
     tr.innerHTML = `
       <td class="rank-cell">${medalFor(rank)}</td>
-      <td class="team-name">${teamDisplayName(teams, row.team_id)}</td>
+      <td class="team-name">${teamDisplayName(teams, row.team_id)} <span class="expand-hint">▾</span></td>
       <td><span class="pill">${row.league_points}</span></td>
       <td>${row.raw_points}</td>
     `;
+
+    const detailTr = document.createElement("tr");
+    detailTr.className = "standings-detail-row";
+    detailTr.style.display = "none";
+    const detailTd = document.createElement("td");
+    detailTd.colSpan = 4;
+    detailTd.innerHTML = `<ul class="entry-detail-list">${entryDetailRows(teams, scores, row.team_id)}</ul>`;
+    detailTr.appendChild(detailTd);
+
+    tr.addEventListener("click", () => {
+      const showing = detailTr.style.display !== "none";
+      detailTr.style.display = showing ? "none" : "table-row";
+      tr.classList.toggle("expanded", !showing);
+    });
+
     el.appendChild(tr);
+    el.appendChild(detailTr);
   });
 }
 
@@ -59,11 +96,11 @@ async function renderTeams() {
       const card = document.createElement("div");
       card.className = "card team-card";
       card.innerHTML = `
-        <h3>Team ${Number(teamId) + 1}</h3>
+        <h3>Team ${teamId}</h3>
         <ul>
           ${entries
             .map(
-              (e) => `<li>${e.entry_name}<br><span class="entry-manager">${e.manager}</span></li>`
+              (e) => `<li><a href="${fplEntryUrl(e.entry_id)}" target="_blank" rel="noopener">${e.entry_name}</a><br><span class="entry-manager">${e.manager}</span></li>`
             )
             .join("")}
         </ul>
