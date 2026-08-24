@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SLNA Fantasy PL 2026-2027 — Thể lệ</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <h1>⚽ SLNA Fantasy PL <span class="badge">2026-2027</span></h1>
+      <nav class="site-nav">
+        <a href="index.html">Bảng xếp hạng</a>
+        <a href="round.html">Từng vòng đấu</a>
+        <a href="teams.html">Chia đội</a>
+        <a href="rules.html" class="active">Thể lệ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2>Thể lệ giải đấu</h2>
+      <p>40 đội FPL cá nhân được chia thành 10 team (4 đội/team). Mỗi vòng đấu (event),
+        điểm của 4 đội trong 1 team được cộng lại thành tổng điểm vòng của team đó.</p>
+
+      <h3>Cách tính điểm League mỗi vòng</h3>
+      <p>10 team được xếp hạng theo tổng điểm vòng, từ cao xuống thấp, và nhận điểm League
+        tương ứng:</p>
+      <table>
+        <thead>
+          <tr><th>Hạng</th><th>Điểm League</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Nhất</td><td>10</td></tr>
+          <tr><td>Nhì</td><td>9</td></tr>
+          <tr><td>Ba</td><td>8</td></tr>
+          <tr><td>Tư</td><td>7</td></tr>
+          <tr><td>Năm</td><td>6</td></tr>
+          <tr><td>Sáu</td><td>5</td></tr>
+          <tr><td>Bảy</td><td>4</td></tr>
+          <tr><td>Tám</td><td>3</td></tr>
+          <tr><td>Chín</td><td>2</td></tr>
+          <tr><td>Mười</td><td>0</td></tr>
+        </tbody>
+      </table>
+      <p class="muted">Nếu 2 hay nhiều team đồng điểm ở 1 vòng, tất cả các team đồng hạng
+        đều nhận điểm của hạng cao nhất trong nhóm (ví dụ 2 team cùng nhì thì cả 2 đều nhận
+        9 điểm, team kế tiếp nhận 7 điểm — bỏ qua hạng 3).</p>
+
+      <h3>Bảng xếp hạng chung</h3>
+      <p>Điểm League được cộng dồn qua các vòng để tạo thành bảng xếp hạng chung của giải.
+        Team dẫn đầu là team có tổng điểm League cao nhất.</p>
+
+      <h3>Giải thưởng</h3>
+      <p>Hết vòng 19, team dẫn đầu bảng xếp hạng chung nhận giải:</p>
+      <div class="prize-list">
+        <div class="prize">
+          <div class="amount">2.000.000đ</div>
+          <div class="muted">Hạng Nhất</div>
+        </div>
+        <div class="prize">
+          <div class="amount">1.000.000đ</div>
+          <div class="muted">Hạng Nhì</div>
+        </div>
+        <div class="prize">
+          <div class="amount">500.000đ</div>
+          <div class="muted">Hạng Ba</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>SLNA Fantasy PL 2026-2027 · Dữ liệu từ Fantasy Premier League API</footer>
+  <script src="assets/app.js"></script>
+</body>
+</html>
