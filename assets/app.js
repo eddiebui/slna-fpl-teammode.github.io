@@ -33,6 +33,11 @@ function fplLinkHtml(entryId, label) {
   `;
 }
 
+const CHEVRON_SVG =
+  '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+// Entry detail rows reuse the same grid columns as the team row above them,
+// so an entry's own FPL points line up under the team's FPL points column.
 function entryDetailRows(teams, scores, teamId, event) {
   const entries = teams[teamId] || [];
   return entries
@@ -42,12 +47,18 @@ function entryDetailRows(teams, scores, teamId, event) {
         event == null
           ? scoreEntry?.total ?? "-"
           : scoreEntry?.event_points?.[String(event)] ?? "-";
+      const url = fplEntryUrl(e.entry_id);
       return `
-        <li>
-          ${fplLinkHtml(e.entry_id, e.entry_name)}
-          <span class="entry-manager">${e.manager}</span>
-          <span class="pill entry-points">${points}</span>
-        </li>
+        <div class="entry-row">
+          <span></span>
+          <span class="entry-name-cell">
+            <a href="${url}" target="_blank" rel="noopener">${e.entry_name}</a>
+            <span class="entry-manager">${e.manager}</span>
+          </span>
+          <span class="entry-fpl">${points}</span>
+          <span></span>
+          <button type="button" class="copy-link-btn" data-url="${url}" title="Copy link (dùng nếu app FPL tự mở và hiện sai đội)">⧉</button>
+        </div>
       `;
     })
     .join("");
@@ -81,8 +92,8 @@ async function renderStandings() {
       return standings.standings.map((row, idx) => ({
         teamId: row.team_id,
         rank: idx + 1,
+        fplPoints: row.raw_points,
         leaguePoints: row.league_points,
-        rawPoints: row.raw_points,
         event: null,
       }));
     }
@@ -95,9 +106,8 @@ async function renderStandings() {
     return arr.map((row, idx) => ({
       teamId: row.teamId,
       rank: idx + 1,
-      roundPoints: row.round_points,
+      fplPoints: row.round_points,
       leaguePoints: row.league_points,
-      cumulative: row.cumulative_league_points,
       event,
     }));
   }
@@ -105,51 +115,44 @@ async function renderStandings() {
   function render() {
     const mode = gwSelect.value;
     const isAll = mode === "all";
-    head.innerHTML = isAll
-      ? `<tr><th>Hạng</th><th>Team</th><th>Điểm League</th><th>Tổng điểm FPL</th></tr>`
-      : `<tr><th>Hạng</th><th>Team</th><th>Điểm vòng</th><th>Điểm League</th><th>Tổng lũy kế</th></tr>`;
-    const colSpan = isAll ? 4 : 5;
+    head.innerHTML = `
+      <span>Hạng</span>
+      <span>Team</span>
+      <span style="text-align:right">${isAll ? "Tổng điểm FPL" : "Điểm FPL vòng"}</span>
+      <span style="text-align:right">${isAll ? "Tổng điểm League" : "Điểm League vòng"}</span>
+      <span></span>
+    `;
 
     const rows = computeRows(mode);
     body.innerHTML = "";
     rows.forEach((row) => {
-      const tr = document.createElement("tr");
+      const tr = document.createElement("div");
       tr.className = "standings-row";
-      tr.innerHTML = isAll
-        ? `
-          <td class="rank-cell">${medalFor(row.rank)}</td>
-          <td class="team-name">${teamDisplayName(teams, row.teamId)} <span class="expand-hint">▾</span></td>
-          <td><span class="pill">${row.leaguePoints}</span></td>
-          <td>${row.rawPoints}</td>
-        `
-        : `
-          <td class="rank-cell">${medalFor(row.rank)}</td>
-          <td class="team-name">${teamDisplayName(teams, row.teamId)} <span class="expand-hint">▾</span></td>
-          <td>${row.roundPoints ?? "-"}</td>
-          <td><span class="pill">${row.leaguePoints ?? "-"}</span></td>
-          <td>${row.cumulative}</td>
-        `;
+      tr.innerHTML = `
+        <span class="rank-cell">${medalFor(row.rank)}</span>
+        <span class="team-name">${teamDisplayName(teams, row.teamId)}</span>
+        <span class="metric-fpl">${row.fplPoints ?? "-"}</span>
+        <span><span class="pill">${row.leaguePoints ?? "-"}</span></span>
+        <span class="chev">${CHEVRON_SVG}</span>
+      `;
 
-      const detailTr = document.createElement("tr");
-      detailTr.className = "standings-detail-row";
+      const detailWrap = document.createElement("div");
+      detailWrap.className = "detail-wrap";
       const isExpanded = expanded.has(row.teamId);
-      detailTr.style.display = isExpanded ? "table-row" : "none";
+      if (isExpanded) detailWrap.classList.add("open");
       tr.classList.toggle("expanded", isExpanded);
-      const detailTd = document.createElement("td");
-      detailTd.colSpan = colSpan;
-      detailTd.innerHTML = `<ul class="entry-detail-list">${entryDetailRows(teams, scores, row.teamId, row.event)}</ul>`;
-      detailTr.appendChild(detailTd);
+      detailWrap.innerHTML = entryDetailRows(teams, scores, row.teamId, row.event);
 
       tr.addEventListener("click", () => {
-        const showing = detailTr.style.display !== "none";
-        detailTr.style.display = showing ? "none" : "table-row";
+        const showing = detailWrap.classList.contains("open");
+        detailWrap.classList.toggle("open", !showing);
         tr.classList.toggle("expanded", !showing);
         if (showing) expanded.delete(row.teamId);
         else expanded.add(row.teamId);
       });
 
       body.appendChild(tr);
-      body.appendChild(detailTr);
+      body.appendChild(detailWrap);
     });
   }
 
