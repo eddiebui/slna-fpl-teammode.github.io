@@ -49,7 +49,7 @@ def build_scores(teams):
     session.headers.update({"User-Agent": "slna-fantasy-league-bot/1.0"})
 
     scores = {}
-    all_entries = [entry for entries in teams.values() for entry in entries]
+    all_entries = [entry for team in teams.values() for entry in team["entries"]]
     for i, entry in enumerate(all_entries, start=1):
         entry_id = entry["entry_id"]
         print(f"[{i}/{len(all_entries)}] Fetching entry {entry_id} ({entry['entry_name']})...")
@@ -94,7 +94,7 @@ def compute_standings(teams, scores):
     for event in events:
         team_round_points = {}
         for tid in team_ids:
-            entries = teams[tid]
+            entries = teams[tid]["entries"]
             round_total = 0
             complete = True
             for entry in entries:

@@ -16,7 +16,7 @@ function formatUpdatedAt(iso) {
 }
 
 function teamDisplayName(teams, teamId) {
-  return `Team ${teamId}`;
+  return teams[teamId]?.name ?? `Team ${teamId}`;
 }
 
 function fplEntryUrl(entryId) {
@@ -37,7 +37,7 @@ const CHEVRON_SVG =
 // Entry detail rows reuse the same grid columns as the team row above them,
 // so an entry's own FPL points line up under the team's FPL points column.
 function entryDetailRows(teams, scores, teamId, event) {
-  const entries = teams[teamId] || [];
+  const entries = teams[teamId]?.entries ?? [];
   return entries
     .map((e) => {
       const scoreEntry = scores[String(e.entry_id)];
@@ -131,7 +131,7 @@ async function renderStandings() {
         ${rankChip(row.rank)}
         <span class="team-cell">
           <span class="team-name">${teamDisplayName(teams, row.teamId)}</span>
-          <span class="team-meta">${(teams[row.teamId] || []).length} đội</span>
+          <span class="team-meta">${(teams[row.teamId]?.entries ?? []).length} đội</span>
         </span>
         <span class="metric-fpl">${row.fplPoints ?? "-"}</span>
         <span class="pill">${row.leaguePoints ?? "-"}</span>
@@ -194,12 +194,12 @@ async function renderTeams() {
   Object.keys(teams)
     .sort((a, b) => Number(a) - Number(b))
     .forEach((teamId) => {
-      const entries = teams[teamId];
+      const entries = teams[teamId].entries;
       const card = document.createElement("div");
       card.className = "team-card";
       card.innerHTML = `
         <div class="card-head">
-          <span class="team-tag">Team ${teamId}</span>
+          <span class="team-tag">${teamDisplayName(teams, teamId)}</span>
           <span class="team-total">${totalByTeam[teamId] ?? "-"} đ</span>
         </div>
         <ul>

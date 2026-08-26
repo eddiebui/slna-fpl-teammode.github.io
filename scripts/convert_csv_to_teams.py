@@ -12,6 +12,19 @@ ROOT = Path(__file__).resolve().parent.parent
 CSV_PATH = ROOT / "SLNA Fantasy PL 2026-2027 - Copy of Team mode 1.csv"
 OUT_PATH = ROOT / "data" / "teams.json"
 
+TEAM_NAMES = {
+    "0": "Team X",
+    "1": "Rùa Pro Max",
+    "2": "Cu Đơ",
+    "3": "Đông Phương Thất Bại",
+    "4": "Đội Bốn Cục Tạ",
+    "5": "Liên Đoàn Ớt",
+    "6": "Hốc Mút",
+    "7": "VLC",
+    "8": "Bùi Za và Gà Jin",
+    "9": "Tài Đức Bắc Son Hên Lộc",
+}
+
 
 def main():
     teams = {}
@@ -26,14 +39,20 @@ def main():
             }
             teams.setdefault(team_id, []).append(entry)
 
-    ordered = {team_id: teams[team_id] for team_id in sorted(teams, key=int)}
+    ordered = {
+        team_id: {
+            "name": TEAM_NAMES.get(team_id, f"Team {team_id}"),
+            "entries": teams[team_id],
+        }
+        for team_id in sorted(teams, key=int)
+    }
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with OUT_PATH.open("w", encoding="utf-8") as f:
         json.dump(ordered, f, ensure_ascii=False, indent=2)
 
     print(f"Wrote {OUT_PATH} ({len(ordered)} teams, "
-          f"{sum(len(v) for v in ordered.values())} entries)")
+          f"{sum(len(v['entries']) for v in ordered.values())} entries)")
 
 
 if __name__ == "__main__":

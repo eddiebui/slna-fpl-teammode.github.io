@@ -1,222 +1,252 @@
 {
-  "0": [
-    {
-      "entry_id": 19774,
-      "entry_name": "MonMi Utd",
-      "manager": "DAT TRAN"
-    },
-    {
-      "entry_id": 32261,
-      "entry_name": "[DE] United",
-      "manager": "DANG HAI NAM"
-    },
-    {
-      "entry_id": 3799883,
-      "entry_name": "ANIBERRY",
-      "manager": "Hung Cao"
-    },
-    {
-      "entry_id": 803787,
-      "entry_name": "DIMO FC",
-      "manager": "Dang Duong"
-    }
-  ],
-  "1": [
-    {
-      "entry_id": 650724,
-      "entry_name": "MEO MEO FC",
-      "manager": "Dang Tran"
-    },
-    {
-      "entry_id": 86152,
-      "entry_name": "Blasting Wand",
-      "manager": "Blasting Wand"
-    },
-    {
-      "entry_id": 645965,
-      "entry_name": "Fc.rùa",
-      "manager": "Khê Phạm"
-    },
-    {
-      "entry_id": 679916,
-      "entry_name": "Andy Duong",
-      "manager": "Duong Quang Thanh"
-    }
-  ],
-  "2": [
-    {
-      "entry_id": 388468,
-      "entry_name": "dat.TM",
-      "manager": "Dat Manh"
-    },
-    {
-      "entry_id": 2736471,
-      "entry_name": "Xichlochovinh",
-      "manager": "Leo Messi"
-    },
-    {
-      "entry_id": 355549,
-      "entry_name": "Điệp",
-      "manager": "Lan Và"
-    },
-    {
-      "entry_id": 4030230,
-      "entry_name": "FC Vitula2110",
-      "manager": "Tú Nguyễn Minh"
-    }
-  ],
-  "3": [
-    {
-      "entry_id": 87393,
-      "entry_name": "Xmas9",
-      "manager": "Hieu Le"
-    },
-    {
-      "entry_id": 34574,
-      "entry_name": "CHR_Lallana",
-      "manager": "XuanTung ThanhHuyen"
-    },
-    {
-      "entry_id": 4793800,
-      "entry_name": "EIB.NA",
-      "manager": "Anh Tuấn"
-    },
-    {
-      "entry_id": 686224,
-      "entry_name": "Dũng Na",
-      "manager": "Anh Dũng"
-    }
-  ],
-  "4": [
-    {
-      "entry_id": 73207,
-      "entry_name": "[ Michael United ]",
-      "manager": "Michael Nguyen"
-    },
-    {
-      "entry_id": 2208711,
-      "entry_name": "Coca FC",
-      "manager": "Hùng Doãn"
-    },
-    {
-      "entry_id": 2167891,
-      "entry_name": "Hieu's Team",
-      "manager": "Hieu Hoang"
-    },
-    {
-      "entry_id": 4418718,
-      "entry_name": "PiChiCa",
-      "manager": "Tung Nguyen"
-    }
-  ],
-  "5": [
-    {
-      "entry_id": 1895,
-      "entry_name": "Boom Xhaka Laca",
-      "manager": "DaviD Vo"
-    },
-    {
-      "entry_id": 1145344,
-      "entry_name": "Thiên Mệnh",
-      "manager": "Nam Tran Hoai"
-    },
-    {
-      "entry_id": 1484443,
-      "entry_name": "SLNA FC",
-      "manager": "Phan Huu Hieu"
-    },
-    {
-      "entry_id": 3187074,
-      "entry_name": "Huy Bach",
-      "manager": "Quang Thi"
-    }
-  ],
-  "6": [
-    {
-      "entry_id": 51283,
-      "entry_name": "Sườn",
-      "manager": "Nguyen Đ.T"
-    },
-    {
-      "entry_id": 774106,
-      "entry_name": "WoD",
-      "manager": "Chi Bảo"
-    },
-    {
-      "entry_id": 18808,
-      "entry_name": "Joker",
-      "manager": "Minh Dương"
-    },
-    {
-      "entry_id": 519223,
-      "entry_name": "C t i d 99",
-      "manager": "Sy Tien"
-    }
-  ],
-  "7": [
-    {
-      "entry_id": 702292,
-      "entry_name": "Michael Carrisk",
-      "manager": "Uyen Mai Song"
-    },
-    {
-      "entry_id": 45841,
-      "entry_name": "le.min.sol",
-      "manager": "Thinh Nguyen"
-    },
-    {
-      "entry_id": 657040,
-      "entry_name": "Duc Viet M",
-      "manager": "Nguyen Duc Hanh"
-    },
-    {
-      "entry_id": 2320843,
-      "entry_name": "Milo-Xôi",
-      "manager": "Võ Dũng"
-    }
-  ],
-  "8": [
-    {
-      "entry_id": 51048,
-      "entry_name": "Tomryjolex",
-      "manager": "Nguyen Bui"
-    },
-    {
-      "entry_id": 696312,
-      "entry_name": "VIETNAMCYBERDRAGON",
-      "manager": "Nguyễn QUYẾT CHIẾN"
-    },
-    {
-      "entry_id": 702145,
-      "entry_name": "Alibaba",
-      "manager": "Eddie Bui"
-    },
-    {
-      "entry_id": 3673713,
-      "entry_name": "banino",
-      "manager": "bqsang mr"
-    }
-  ],
-  "9": [
-    {
-      "entry_id": 69736,
-      "entry_name": "Thaocute",
-      "manager": "Saika Kawakita"
-    },
-    {
-      "entry_id": 20361,
-      "entry_name": "[TBF] Tom Nguyen",
-      "manager": "Vinh Thanh Nguyen"
-    },
-    {
-      "entry_id": 4041581,
-      "entry_name": "MGMH",
-      "manager": "Phung Hoa"
-    },
-    {
-      "entry_id": 2426150,
-      "entry_name": "BabyGoal",
-      "manager": "Anh Iniesta"
-    }
-  ]
+  "0": {
+    "name": "Team X",
+    "entries": [
+      {
+        "entry_id": 19774,
+        "entry_name": "MonMi Utd",
+        "manager": "DAT TRAN"
+      },
+      {
+        "entry_id": 32261,
+        "entry_name": "[DE] United",
+        "manager": "DANG HAI NAM"
+      },
+      {
+        "entry_id": 3799883,
+        "entry_name": "ANIBERRY",
+        "manager": "Hung Cao"
+      },
+      {
+        "entry_id": 803787,
+        "entry_name": "DIMO FC",
+        "manager": "Dang Duong"
+      }
+    ]
+  },
+  "1": {
+    "name": "Rùa Pro Max",
+    "entries": [
+      {
+        "entry_id": 650724,
+        "entry_name": "MEO MEO FC",
+        "manager": "Dang Tran"
+      },
+      {
+        "entry_id": 86152,
+        "entry_name": "Blasting Wand",
+        "manager": "Blasting Wand"
+      },
+      {
+        "entry_id": 645965,
+        "entry_name": "Fc.rùa",
+        "manager": "Khê Phạm"
+      },
+      {
+        "entry_id": 679916,
+        "entry_name": "Andy Duong",
+        "manager": "Duong Quang Thanh"
+      }
+    ]
+  },
+  "2": {
+    "name": "Cu Đơ",
+    "entries": [
+      {
+        "entry_id": 388468,
+        "entry_name": "dat.TM",
+        "manager": "Dat Manh"
+      },
+      {
+        "entry_id": 2736471,
+        "entry_name": "Xichlochovinh",
+        "manager": "Leo Messi"
+      },
+      {
+        "entry_id": 355549,
+        "entry_name": "Điệp",
+        "manager": "Lan Và"
+      },
+      {
+        "entry_id": 4030230,
+        "entry_name": "FC Vitula2110",
+        "manager": "Tú Nguyễn Minh"
+      }
+    ]
+  },
+  "3": {
+    "name": "Đông Phương Thất Bại",
+    "entries": [
+      {
+        "entry_id": 87393,
+        "entry_name": "Xmas9",
+        "manager": "Hieu Le"
+      },
+      {
+        "entry_id": 34574,
+        "entry_name": "CHR_Lallana",
+        "manager": "XuanTung ThanhHuyen"
+      },
+      {
+        "entry_id": 4793800,
+        "entry_name": "EIB.NA",
+        "manager": "Anh Tuấn"
+      },
+      {
+        "entry_id": 686224,
+        "entry_name": "Dũng Na",
+        "manager": "Anh Dũng"
+      }
+    ]
+  },
+  "4": {
+    "name": "Đội Bốn Cục Tạ",
+    "entries": [
+      {
+        "entry_id": 73207,
+        "entry_name": "[ Michael United ]",
+        "manager": "Michael Nguyen"
+      },
+      {
+        "entry_id": 2208711,
+        "entry_name": "Coca FC",
+        "manager": "Hùng Doãn"
+      },
+      {
+        "entry_id": 2167891,
+        "entry_name": "Hieu's Team",
+        "manager": "Hieu Hoang"
+      },
+      {
+        "entry_id": 4418718,
+        "entry_name": "PiChiCa",
+        "manager": "Tung Nguyen"
+      }
+    ]
+  },
+  "5": {
+    "name": "Liên Đoàn Ớt",
+    "entries": [
+      {
+        "entry_id": 1895,
+        "entry_name": "Boom Xhaka Laca",
+        "manager": "DaviD Vo"
+      },
+      {
+        "entry_id": 1145344,
+        "entry_name": "Thiên Mệnh",
+        "manager": "Nam Tran Hoai"
+      },
+      {
+        "entry_id": 1484443,
+        "entry_name": "SLNA FC",
+        "manager": "Phan Huu Hieu"
+      },
+      {
+        "entry_id": 3187074,
+        "entry_name": "Huy Bach",
+        "manager": "Quang Thi"
+      }
+    ]
+  },
+  "6": {
+    "name": "Hốc Mút",
+    "entries": [
+      {
+        "entry_id": 51283,
+        "entry_name": "Sườn",
+        "manager": "Nguyen Đ.T"
+      },
+      {
+        "entry_id": 774106,
+        "entry_name": "WoD",
+        "manager": "Chi Bảo"
+      },
+      {
+        "entry_id": 18808,
+        "entry_name": "Joker",
+        "manager": "Minh Dương"
+      },
+      {
+        "entry_id": 519223,
+        "entry_name": "C t i d 99",
+        "manager": "Sy Tien"
+      }
+    ]
+  },
+  "7": {
+    "name": "VLC",
+    "entries": [
+      {
+        "entry_id": 702292,
+        "entry_name": "Michael Carrisk",
+        "manager": "Uyen Mai Song"
+      },
+      {
+        "entry_id": 45841,
+        "entry_name": "le.min.sol",
+        "manager": "Thinh Nguyen"
+      },
+      {
+        "entry_id": 657040,
+        "entry_name": "Duc Viet M",
+        "manager": "Nguyen Duc Hanh"
+      },
+      {
+        "entry_id": 2320843,
+        "entry_name": "Milo-Xôi",
+        "manager": "Võ Dũng"
+      }
+    ]
+  },
+  "8": {
+    "name": "Bùi Za và Gà Jin",
+    "entries": [
+      {
+        "entry_id": 51048,
+        "entry_name": "Tomryjolex",
+        "manager": "Nguyen Bui"
+      },
+      {
+        "entry_id": 696312,
+        "entry_name": "VIETNAMCYBERDRAGON",
+        "manager": "Nguyễn QUYẾT CHIẾN"
+      },
+      {
+        "entry_id": 702145,
+        "entry_name": "Alibaba",
+        "manager": "Eddie Bui"
+      },
+      {
+        "entry_id": 3673713,
+        "entry_name": "banino",
+        "manager": "bqsang mr"
+      }
+    ]
+  },
+  "9": {
+    "name": "Tài Đức Bắc Son Hên Lộc",
+    "entries": [
+      {
+        "entry_id": 69736,
+        "entry_name": "Thaocute",
+        "manager": "Saika Kawakita"
+      },
+      {
+        "entry_id": 20361,
+        "entry_name": "[TBF] Tom Nguyen",
+        "manager": "Vinh Thanh Nguyen"
+      },
+      {
+        "entry_id": 4041581,
+        "entry_name": "MGMH",
+        "manager": "Phung Hoa"
+      },
+      {
+        "entry_id": 2426150,
+        "entry_name": "BabyGoal",
+        "manager": "Anh Iniesta"
+      }
+    ]
+  }
 }
