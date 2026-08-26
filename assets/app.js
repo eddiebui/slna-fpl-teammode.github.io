@@ -86,15 +86,27 @@ async function renderStandings() {
 
   const expanded = new Set();
 
+  // Standard competition ranking: teams tied on league points share a rank,
+  // and the next rank skips ahead by the number of teams tied above it.
+  function assignTiedRanks(rows) {
+    let rank = 1;
+    let prevPoints = null;
+    return rows.map((row, idx) => {
+      if (row.leaguePoints !== prevPoints) rank = idx + 1;
+      prevPoints = row.leaguePoints;
+      return { ...row, rank };
+    });
+  }
+
   function computeRows(mode) {
     if (mode === "all") {
-      return standings.standings.map((row, idx) => ({
+      const rows = standings.standings.map((row) => ({
         teamId: row.team_id,
-        rank: idx + 1,
         fplPoints: row.raw_points,
         leaguePoints: row.league_points,
         event: null,
       }));
+      return assignTiedRanks(rows);
     }
     const event = Number(mode);
     const roundData = rounds.find((r) => r.event === event);
@@ -102,13 +114,13 @@ async function renderStandings() {
     const arr = Object.entries(roundData.teams)
       .map(([teamId, d]) => ({ teamId, ...d }))
       .sort((a, b) => (b.round_points ?? -1) - (a.round_points ?? -1));
-    return arr.map((row, idx) => ({
+    const rows = arr.map((row) => ({
       teamId: row.teamId,
-      rank: idx + 1,
       fplPoints: row.round_points,
       leaguePoints: row.league_points,
       event,
     }));
+    return assignTiedRanks(rows);
   }
 
   function render() {
