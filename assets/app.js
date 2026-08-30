@@ -86,27 +86,31 @@ async function renderStandings() {
 
   const expanded = new Set();
 
-  // Standard competition ranking: teams tied on league points share a rank,
+  // Standard competition ranking: teams tied on `tieKey(row)` share a rank,
   // and the next rank skips ahead by the number of teams tied above it.
-  function assignTiedRanks(rows) {
+  function assignTiedRanks(rows, tieKey) {
     let rank = 1;
-    let prevPoints = null;
+    let prevKey = null;
     return rows.map((row, idx) => {
-      if (row.leaguePoints !== prevPoints) rank = idx + 1;
-      prevPoints = row.leaguePoints;
+      const key = tieKey(row);
+      if (key !== prevKey) rank = idx + 1;
+      prevKey = key;
       return { ...row, rank };
     });
   }
 
   function computeRows(mode) {
     if (mode === "all") {
+      // Cumulative table: only tie the rank when BOTH league points and
+      // total FPL points match — league points alone isn't enough here,
+      // since standings.json already breaks ties by FPL points in its sort.
       const rows = standings.standings.map((row) => ({
         teamId: row.team_id,
         fplPoints: row.raw_points,
         leaguePoints: row.league_points,
         event: null,
       }));
-      return assignTiedRanks(rows);
+      return assignTiedRanks(rows, (row) => `${row.leaguePoints}|${row.fplPoints}`);
     }
     const event = Number(mode);
     const roundData = rounds.find((r) => r.event === event);
@@ -120,7 +124,9 @@ async function renderStandings() {
       leaguePoints: row.league_points,
       event,
     }));
-    return assignTiedRanks(rows);
+    // Per-round league points are already only equal when round FPL points
+    // are equal too, so tying on league points alone is correct here.
+    return assignTiedRanks(rows, (row) => row.leaguePoints);
   }
 
   function render() {
