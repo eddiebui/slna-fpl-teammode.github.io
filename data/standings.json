@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-21T06:09:56Z",
+  "updated_at": "2026-09-21T10:14:46Z",
   "rounds": [
     {
       "event": 1,
@@ -289,10 +289,10 @@
           "cumulative_raw_points": 1283
         },
         "4": {
-          "round_points": 141,
+          "round_points": 144,
           "league_points": 2,
           "cumulative_league_points": 15,
-          "cumulative_raw_points": 1246
+          "cumulative_raw_points": 1249
         },
         "5": {
           "round_points": 195,
@@ -320,8 +320,8 @@
         },
         "9": {
           "round_points": 141,
-          "league_points": 2,
-          "cumulative_league_points": 21,
+          "league_points": 0,
+          "cumulative_league_points": 19,
           "cumulative_raw_points": 1254
         }
       }
@@ -370,13 +370,13 @@
     },
     {
       "team_id": "9",
-      "league_points": 21,
+      "league_points": 19,
       "raw_points": 1254
     },
     {
       "team_id": "4",
       "league_points": 15,
-      "raw_points": 1246
+      "raw_points": 1249
     }
   ]
 }
