@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-31T22:24:55Z",
+  "updated_at": "2026-11-01T02:06:10Z",
   "rounds": [
     {
       "event": 1,
@@ -525,64 +525,64 @@
       "event": 9,
       "teams": {
         "0": {
-          "round_points": 0,
-          "league_points": 10,
-          "cumulative_league_points": 63,
-          "cumulative_raw_points": 2091
+          "round_points": 178,
+          "league_points": 6,
+          "cumulative_league_points": 59,
+          "cumulative_raw_points": 2269
         },
         "1": {
-          "round_points": 0,
+          "round_points": 220,
           "league_points": 10,
           "cumulative_league_points": 66,
-          "cumulative_raw_points": 2085
+          "cumulative_raw_points": 2305
         },
         "2": {
-          "round_points": 0,
-          "league_points": 10,
-          "cumulative_league_points": 71,
-          "cumulative_raw_points": 2188
+          "round_points": 176,
+          "league_points": 5,
+          "cumulative_league_points": 66,
+          "cumulative_raw_points": 2364
         },
         "3": {
-          "round_points": 0,
-          "league_points": 10,
-          "cumulative_league_points": 46,
-          "cumulative_raw_points": 1959
+          "round_points": 169,
+          "league_points": 3,
+          "cumulative_league_points": 39,
+          "cumulative_raw_points": 2128
         },
         "4": {
-          "round_points": 0,
-          "league_points": 10,
-          "cumulative_league_points": 40,
-          "cumulative_raw_points": 1956
+          "round_points": 152,
+          "league_points": 2,
+          "cumulative_league_points": 32,
+          "cumulative_raw_points": 2108
         },
         "5": {
-          "round_points": 0,
-          "league_points": 10,
-          "cumulative_league_points": 55,
-          "cumulative_raw_points": 2009
+          "round_points": 133,
+          "league_points": 0,
+          "cumulative_league_points": 45,
+          "cumulative_raw_points": 2142
         },
         "6": {
-          "round_points": 0,
-          "league_points": 10,
-          "cumulative_league_points": 49,
-          "cumulative_raw_points": 1995
+          "round_points": 182,
+          "league_points": 7,
+          "cumulative_league_points": 46,
+          "cumulative_raw_points": 2177
         },
         "7": {
-          "round_points": 0,
-          "league_points": 10,
-          "cumulative_league_points": 50,
-          "cumulative_raw_points": 1983
+          "round_points": 196,
+          "league_points": 9,
+          "cumulative_league_points": 49,
+          "cumulative_raw_points": 2179
         },
         "8": {
-          "round_points": 0,
-          "league_points": 10,
-          "cumulative_league_points": 51,
-          "cumulative_raw_points": 2022
+          "round_points": 195,
+          "league_points": 8,
+          "cumulative_league_points": 49,
+          "cumulative_raw_points": 2217
         },
         "9": {
-          "round_points": 0,
-          "league_points": 10,
-          "cumulative_league_points": 50,
-          "cumulative_raw_points": 1972
+          "round_points": 170,
+          "league_points": 4,
+          "cumulative_league_points": 44,
+          "cumulative_raw_points": 2142
         }
       }
     }
@@ -590,53 +590,53 @@
   "standings": [
     {
       "team_id": "2",
-      "league_points": 71,
-      "raw_points": 2188
+      "league_points": 66,
+      "raw_points": 2364
     },
     {
       "team_id": "1",
       "league_points": 66,
-      "raw_points": 2085
+      "raw_points": 2305
     },
     {
       "team_id": "0",
-      "league_points": 63,
-      "raw_points": 2091
-    },
-    {
-      "team_id": "5",
-      "league_points": 55,
-      "raw_points": 2009
+      "league_points": 59,
+      "raw_points": 2269
     },
     {
       "team_id": "8",
-      "league_points": 51,
-      "raw_points": 2022
+      "league_points": 49,
+      "raw_points": 2217
     },
     {
       "team_id": "7",
-      "league_points": 50,
-      "raw_points": 1983
-    },
-    {
-      "team_id": "9",
-      "league_points": 50,
-      "raw_points": 1972
+      "league_points": 49,
+      "raw_points": 2179
     },
     {
       "team_id": "6",
-      "league_points": 49,
-      "raw_points": 1995
+      "league_points": 46,
+      "raw_points": 2177
+    },
+    {
+      "team_id": "5",
+      "league_points": 45,
+      "raw_points": 2142
+    },
+    {
+      "team_id": "9",
+      "league_points": 44,
+      "raw_points": 2142
     },
     {
       "team_id": "3",
-      "league_points": 46,
-      "raw_points": 1959
+      "league_points": 39,
+      "raw_points": 2128
     },
     {
       "team_id": "4",
-      "league_points": 40,
-      "raw_points": 1956
+      "league_points": 32,
+      "raw_points": 2108
     }
   ]
 }
